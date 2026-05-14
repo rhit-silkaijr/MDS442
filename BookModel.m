@@ -11,7 +11,7 @@ function BookModel()
     minCon = avgCon - avgConInt;
 
     % Choose model
-    i = 9;
+    i = 11;
 
     tspan = [0 720];
 
@@ -36,11 +36,11 @@ end
 
     % TODOs: 
     %
-    % Fix models (7, 10, 11)
+    % Fix models (7, 10)
     %   7 for inputs, 10 for outputs looking way off
-    %   11 for making the integral not use a matrix? But idk why it is.
-    % Report on how they do
     % Set up comparison of all models
+    %   Report on how they do
+    %   This is super easy now dw, infrastructure is all there
     % Perform a parameter search somehow
     % Write that report baybeeeeeee
     %   This is getting out of hand. Now there are two of them!
