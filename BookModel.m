@@ -11,7 +11,7 @@ function BookModel()
     minCon = avgCon - avgConInt;
 
     % Choose model
-    i = 11;
+    i = 10;
 
     tspan = [0 720];
 
@@ -36,17 +36,18 @@ end
 
     % TODOs: 
     %
-    % Fix models (7, 10)
-    %   7 for inputs, 10 for outputs looking way off
-    % Set up comparison of all models
-    %   Report on how they do
-    %   This is super easy now dw, infrastructure is all there
     % Perform a parameter search somehow
     % Write that report baybeeeeeee
     %   This is getting out of hand. Now there are two of them!
 
     % Done:
     % 
+    % Set up comparison of all models
+    %   Report on how they do
+    %   This is super easy now dw, infrastructure is all there
+    % Fix models (7, 10)
+    %   7 for inputs, 10 for outputs looking way off
+    %   This is done but 7 and 10 are still very inaccurate
     % Refactor the code into multiple files
     %   We kinda need that one lowkey
     % Choose actual defensible, sensible metric

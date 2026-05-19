@@ -14,16 +14,16 @@ function [t,Q] = EvaluateModel(i, tspan)
         [t,Q] = ode45(ode, tspan, Qo);
         Q = Q(:,5)/dl;
     elseif i == 7
-        Qo = [5950 3000.2 50.4 0]';
+        Qo = [5950 3000.2 50.4 10000]';
         ode = @(t,y) iModel(t,y);
         [t,Q] = ode45(ode, tspan, Qo);
     
         % Calculate V
         km = 66*10^(-3);
         VMax = 1140;
-        Vo = 4.2;
+        Vo = .01;
         V = Vo*(1+VMax*Q(:,4)./(km+Q(:,4)));
-    
+        
         Q = Q(:,3)/V;
     elseif i >= 8 && i <= 10
         Qo = [5950 0 0 50.4]';
