@@ -37,6 +37,29 @@ end
     % TODOs: 
     %
     % Perform a parameter search somehow
+
+        % How to actually search for a function?
+        % Optimize it for three different SSEs
+        % Basic functions have multiple options
+        
+        % Choosing to constrain it away from 7, 9, 10, 11 type.
+        %So, 5 inputs, each dependent on themselves and other terms
+        % with variate constants and potential square/inverse terms
+        
+        % Constants are a1 - a5 for Q1
+        % tog1, tog2 for splitting the flow of 1 and 2 into a and b
+        %   Can be 1 or 0
+        % Tried this but was computationally infeasible - discuss in Report2
+        
+        % Instead, take the form of a couple of models and try to vary their params
+        % And see if this allows for more accurate models.
+        % Best ones have been:
+        % Model 3, Model 6
+        % Also include for fun/more work to show:
+        % Model 1, Model 9
+        
+        % Note mu and ke are fixed for all models, only search table params
+
     % Write that report baybeeeeeee
     %   This is getting out of hand. Now there are two of them!
 
