@@ -13,7 +13,6 @@ tspan = [0 720];
 dl = 4.2;
 
 ka1Opts = [0.005, 0.01, 0.016, 0.017, 0.020, 0.05, 0.1, 0.5, 1];
-ka1Opts2 = linspace(0.016, 0.017, 30);
 
 % Model 1 optimization
 
@@ -32,7 +31,7 @@ SSEBase = SSE(maxCon, minCon, calcCon, 1);
 SSEPartialBase = SSEPartial(maxCon, minCon, calcCon, 1);
 SSEWeightBase = SSEWeight(maxCon, minCon, calcCon, 1);
 
-for ka1 = ka1Opts2
+for ka1 = ka1Opts
     ode = @(t,y) tempInsulinModel1(t, y, ka1);
     [t,Q] = ode45(ode, tspan, Qo);
     Q = Q(:,3)/dl;
@@ -47,15 +46,25 @@ for ka1 = ka1Opts2
     SSEWeightMod = SSEWeight(maxCon, minCon, calcCon);
 
     if SSEMod < SSEBase
-        fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);
+        %fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);
+        SSEBase = SSEMod;
+        bestBaseParams = ka1;
     end
     if SSEPartialMod < SSEPartialBase
-        fprintf("Model %f beats a partial SSE of %f with %f\n", ka1, SSEPartialBase, SSEPartialMod);
+        %fprintf("Model %f beats a partial SSE of %f with %f\n", ka1, SSEPartialBase, SSEPartialMod);
+        SSEPartialBase = SSEPartialMod;
+        bestPartialParams = ka1;
     end
     if SSEWeightMod < SSEWeightBase
-        fprintf("Model %f beats a weighted SSE of %f with %f\n", ka1, SSEWeightBase, SSEWeightMod);
+        %fprintf("Model %f beats a weighted SSE of %f with %f\n", ka1, SSEWeightBase, SSEWeightMod);
+        SSEWeightBase = SSEWeightMod;
+        bestWeightParams = ka1;
     end
 end
+
+fprintf("Best Base SSE = %f with params ka1 = %f\n", SSEBase, bestBaseParams);
+fprintf("Best Partial SSE = %f with params ka1 = %f\n", SSEPartialBase, bestPartialParams);
+fprintf("Best Weight SSE = %f with params ka1 = %f\n", SSEWeightBase, bestWeightParams);
 
 %Also graphs probably
 

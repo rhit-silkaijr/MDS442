@@ -49,17 +49,27 @@ for ka1 = ka1Opts
             SSEWeightMod = SSEWeight(maxCon, minCon, calcCon, ka1);
         
             if SSEMod < SSEBase
-                fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);
+                %fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);
+                SSEBase = SSEMod;
+                bestBaseParams = [ka1 ka2 k];
             end
             if SSEPartialMod < SSEPartialBase
-                fprintf("Model %f beats a partial SSE of %f with %f\n", ka1, SSEPartialBase, SSEPartialMod);
+                %fprintf("Model %f beats a partial SSE of %f with %f\n", ka1, SSEPartialBase, SSEPartialMod);
+                SSEPartialBase = SSEPartialMod;
+                bestPartialParams = [ka1 ka2 k];
             end
             if SSEWeightMod < SSEWeightBase
-                fprintf("Model %f beats a weighted SSE of %f with %f\n", ka1, SSEWeightBase, SSEWeightMod);
+                %fprintf("Model %f beats a weighted SSE of %f with %f\n", ka1, SSEWeightBase, SSEWeightMod);
+                SSEWeightBase = SSEWeightMod;
+                bestWeightParams = [ka1 ka2 k];
             end
         end
     end
 end
+
+fprintf("Best Base SSE = %f with params ka1 = %f, ka2 = %f, k = %f\n", SSEBase, bestBaseParams);
+fprintf("Best Partial SSE = %f with params ka1 = %f, ka2 = %f, k = %f\n", SSEPartialBase, bestPartialParams);
+fprintf("Best Weight SSE = %f with params ka1 = %f, ka2 = %f, k = %f\n", SSEWeightBase, bestWeightParams);
 
 %Also graphs probably
 

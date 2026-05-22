@@ -49,16 +49,26 @@ for VMax = VMaxOpts
         SSEWeightMod = SSEWeight(maxCon, minCon, calcCon);
     
         if SSEMod < SSEBase
-            fprintf("Model VMax = %f, km = %f beats a base SSE of %f with %f\n", VMax, km, SSEBase, SSEMod);
+            %fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);
+            SSEBase = SSEMod;
+            bestBaseParams = [VMax, km];
         end
         if SSEPartialMod < SSEPartialBase
-            fprintf("Model VMax = %f, km = %f beats a partial SSE of %f with %f\n", VMax, km, SSEPartialBase, SSEPartialMod);
+            %fprintf("Model %f beats a partial SSE of %f with %f\n", ka1, SSEPartialBase, SSEPartialMod);
+            SSEPartialBase = SSEPartialMod;
+            bestPartialParams = [VMax, km];
         end
         if SSEWeightMod < SSEWeightBase
-            fprintf("Model VMax = %f, km = %f beats a weighted SSE of %f with %f\n", VMax, km, SSEWeightBase, SSEWeightMod);
+            %fprintf("Model %f beats a weighted SSE of %f with %f\n", ka1, SSEWeightBase, SSEWeightMod);
+            SSEWeightBase = SSEWeightMod;
+            bestWeightParams = [VMax, km];
         end
     end
 end
+
+fprintf("Best Base SSE = %f with params VMax = %f, km = %f\n", SSEBase, bestBaseParams);
+fprintf("Best Partial SSE = %f with params VMax = %f, km = %f\n", SSEPartialBase, bestPartialParams);
+fprintf("Best Weight SSE = %f with params VMax = %f, km = %f\n", SSEWeightBase, bestWeightParams);
 
 %Also graphs probably
 
