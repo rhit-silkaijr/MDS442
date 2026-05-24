@@ -15,5 +15,7 @@ function ret = SSEWeight(maxCon, minCon, measureCon, i)
         end
     end
     ret = sqrt(ret);
-    %fprintf("Model %d produces a weighted SSE of %f\n", i, ret);
+    if i > 0
+        fprintf("Model %d produces a weighted SSE of %f\n", i, ret);
+    end
 end

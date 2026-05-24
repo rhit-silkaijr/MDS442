@@ -41,9 +41,9 @@ for ka1 = ka1Opts
         calcCon(j) = Q(index);
     end
     
-    SSEMod = SSE(maxCon, minCon, calcCon);
-    SSEPartialMod = SSEPartial(maxCon, minCon, calcCon);
-    SSEWeightMod = SSEWeight(maxCon, minCon, calcCon);
+    SSEMod = SSE(maxCon, minCon, calcCon, 0);
+    SSEPartialMod = SSEPartial(maxCon, minCon, calcCon, 0);
+    SSEWeightMod = SSEWeight(maxCon, minCon, calcCon, 0);
 
     if SSEMod < SSEBase
         %fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);

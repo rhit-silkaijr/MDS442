@@ -8,5 +8,7 @@ function ret = SSE(maxCon, minCon, measureCon, i)
         end
     end
     ret = sqrt(ret);
-    %fprintf("Model %d produces an SSE of %f\n", i, ret);
+    if i > 0
+        fprintf("Model %d produces an SSE of %f\n", i, ret);
+    end
 end

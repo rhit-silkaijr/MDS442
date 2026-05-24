@@ -14,7 +14,7 @@ function [t,Q] = EvaluateModel(i, tspan)
         [t,Q] = ode45(ode, tspan, Qo);
         Q = Q(:,5)/dl;
     elseif i == 7
-        Qo = [5950 3000.2 50.4 10000]';
+        Qo = [5950 3000.2 50.4 4.2]';
         ode = @(t,y) iModel(t,y);
         [t,Q] = ode45(ode, tspan, Qo);
     

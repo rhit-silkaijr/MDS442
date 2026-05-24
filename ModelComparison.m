@@ -23,16 +23,35 @@ for i = 1:11
     end
 
     SSEMatrix(i,1) = SSE(maxCon, minCon, calcCon, i);
-    SSEMatrix(i,2) = SSEWeight(maxCon, minCon, calcCon, i);
     SSEMatrix(i,3) = SSEPartial(maxCon, minCon, calcCon, i);
+    SSEMatrix(i,2) = SSEWeight(maxCon, minCon, calcCon, i);
+
 end
 
 [M, I] = min(SSEMatrix(:,1));
 fprintf('\n')
 fprintf("Model %d performs best at SSE with an error of %f\n", I, M);
 
+[t,Q] = EvaluateModel(6,tspan);
+plot(t,Q);
+title('Model 6')
+xlabel('time (minutes)')
+ylabel('Plasma Insulin (mU)')
+hold on
+errorbar(linspace(0, 720, 24), avgCon, avgConInt);
+
+figure
+
 [M, I] = min(SSEMatrix(:,2));
 fprintf("Model %d performs best at weighted SSE with an error of %f\n", I, M);
+
+[t,Q] = EvaluateModel(3,tspan);
+plot(t,Q);
+title('Model 3')
+xlabel('time (minutes)')
+ylabel('Plasma Insulin (mU)')
+hold on
+errorbar(linspace(0, 720, 24), avgCon, avgConInt);
 
 [M, I] = min(SSEMatrix(:,3));
 fprintf("Model %d performs best at partial SSE with an error of %f\n", I, M);

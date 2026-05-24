@@ -13,8 +13,8 @@ tspan = [0 720];
 dl = 4.2;
 
 ka1Opts = [0.005, 0.009, 0.0099, 0.01, 0.0101, 0.0102, 0.01015, 0.02, 0.05, 0.1, 1];
-ka2Opts = [0.005, 0.01, 0.015, 0.016, 0.017, 0.018, 0.019, 0.02, 0.03, 0.04, 0.05, 0.1];
-kOpts = [.1, .3, .5, .55, .59, .6, .61, .62, .63, .65, .7, .8, 1];
+ka2Opts = [0.005, 0.01, 0.015, 0.016, 0.017, 0.018, 0.019, 0.02, 0.03, 0.1, 1];
+kOpts = [.1, .3, .5, .59, .6, .61, .62, .65, .7, .8, 1];
 
 Qo = [0 5950 0 3000.2 50.4]';
 ode = @(t,y) insulinModel6(t,y);
@@ -27,9 +27,9 @@ for j=1:24
     calcCon(j) = Q(index);
 end
 
-SSEBase = SSE(maxCon, minCon, calcCon, 1);
-SSEPartialBase = SSEPartial(maxCon, minCon, calcCon, 1);
-SSEWeightBase = SSEWeight(maxCon, minCon, calcCon, 1);
+SSEBase = SSE(maxCon, minCon, calcCon, 6);
+SSEPartialBase = SSEPartial(maxCon, minCon, calcCon, 6);
+SSEWeightBase = SSEWeight(maxCon, minCon, calcCon, 6);
 
 for ka1 = ka1Opts
     for ka2 = ka2Opts
@@ -43,10 +43,10 @@ for ka1 = ka1Opts
                 index = round(length(Q)*(j)/24);
                 calcCon(j) = Q(index);
             end
-            
-            SSEMod = SSE(maxCon, minCon, calcCon, ka1);
-            SSEPartialMod = SSEPartial(maxCon, minCon, calcCon, ka1);
-            SSEWeightMod = SSEWeight(maxCon, minCon, calcCon, ka1);
+                    
+            SSEMod = SSE(maxCon, minCon, calcCon, 0);
+            SSEPartialMod = SSEPartial(maxCon, minCon, calcCon, 0);
+            SSEWeightMod = SSEWeight(maxCon, minCon, calcCon, 0);
         
             if SSEMod < SSEBase
                 %fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);
@@ -67,11 +67,23 @@ for ka1 = ka1Opts
     end
 end
 
+
+
 fprintf("Best Base SSE = %f with params ka1 = %f, ka2 = %f, k = %f\n", SSEBase, bestBaseParams);
 fprintf("Best Partial SSE = %f with params ka1 = %f, ka2 = %f, k = %f\n", SSEPartialBase, bestPartialParams);
 fprintf("Best Weight SSE = %f with params ka1 = %f, ka2 = %f, k = %f\n", SSEWeightBase, bestWeightParams);
 
 %Also graphs probably
+
+ode = @(t,y) tempInsulinModel6(t,y, bestBaseParams(1), bestBaseParams(2), bestBaseParams(3));
+[t,Q] = ode45(ode, tspan, Qo);
+Q = Q(:,5)/dl;
+
+plot(t,Q);
+xlabel('time (minutes)')
+ylabel('Plasma Insulin (mU)')
+hold on
+errorbar(linspace(0, 720, 24), avgCon, avgConInt);
 
 function Qp = tempInsulinModel6(t,Q, ka1, ka2, k)
     mu = 860/60;

@@ -29,9 +29,9 @@ for j=1:24
     calcCon(j) = Q(index);
 end
 
-SSEBase = SSE(maxCon, minCon, calcCon, 1);
-SSEPartialBase = SSEPartial(maxCon, minCon, calcCon, 1);
-SSEWeightBase = SSEWeight(maxCon, minCon, calcCon, 1);
+SSEBase = SSE(maxCon, minCon, calcCon, 3);
+SSEPartialBase = SSEPartial(maxCon, minCon, calcCon, 3);
+SSEWeightBase = SSEWeight(maxCon, minCon, calcCon, 3);
 
 for VMax = VMaxOpts
     for km = kmOpts
@@ -44,9 +44,9 @@ for VMax = VMaxOpts
             calcCon(j) = Q(index);
         end
         
-        SSEMod = SSE(maxCon, minCon, calcCon);
-        SSEPartialMod = SSEPartial(maxCon, minCon, calcCon);
-        SSEWeightMod = SSEWeight(maxCon, minCon, calcCon);
+        SSEMod = SSE(maxCon, minCon, calcCon, 0);
+        SSEPartialMod = SSEPartial(maxCon, minCon, calcCon, 0);
+        SSEWeightMod = SSEWeight(maxCon, minCon, calcCon, 0);
     
         if SSEMod < SSEBase
             %fprintf("Model %f beats a base SSE of %f with %f\n", ka1, SSEBase, SSEMod);
